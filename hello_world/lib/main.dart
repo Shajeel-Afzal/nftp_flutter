@@ -21,7 +21,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final emailTextEditingController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +41,32 @@ class MainScreen extends StatelessWidget {
           children: [
             Text("Login Now"),
             TextField(
+              controller: emailTextEditingController,
               decoration: InputDecoration(labelText: "Enter your Email"),
             ),
             TextField(
+              obscureText: true,
+              controller: passwordController,
               decoration: InputDecoration(labelText: "Enter your password"),
             ),
-            RaisedButton(child: Text("Login"), onPressed: () {})
+            Center(
+              child: Row(children: [
+                RaisedButton(
+                  child: Text("Login"),
+                  onPressed: () {
+                    print(emailTextEditingController.text);
+                    print(passwordController.text);
+                  },
+                ),
+                RaisedButton(
+                  child: Text("Signup"),
+                  onPressed: () {
+                    print(emailTextEditingController.text);
+                    print(passwordController.text);
+                  },
+                ),
+              ]),
+            ),
           ],
         ),
       ),
