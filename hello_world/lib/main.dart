@@ -1,6 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:hello_world/signup_screen.dart';
+
+import 'home.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,6 +57,30 @@ class _MainScreenState extends State<MainScreen> {
                   onPressed: () {
                     print(emailTextEditingController.text);
                     print(passwordController.text);
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return HomeScreen();
+                        },
+                      ),
+                    );
+
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(builder: (BuildContext builder) {
+                    //     return HomeScreen();
+                    //   }),
+                    // );
+
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (BuildContext builder) {
+                    //     return HomeScreen();
+                    //   }),
+                    // );
+                    // Navigator.pop(context);
                   },
                 ),
                 RaisedButton(
@@ -63,6 +88,13 @@ class _MainScreenState extends State<MainScreen> {
                   onPressed: () {
                     print(emailTextEditingController.text);
                     print(passwordController.text);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return SignupScreenView();
+                      }),
+                    );
                   },
                 ),
               ]),
