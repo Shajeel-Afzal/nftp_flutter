@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/quiz_option.dart';
+import 'package:hello_world/send_data_to_second_screen.dart';
 import 'package:hello_world/signup_screen.dart';
 
 import 'home.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainScreen(),
+      home: XdDemo(),
     );
   }
 }
@@ -92,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (BuildContext context) {
-                        return SignupScreenView();
+                        return DemoWidget();
                       }),
                     );
                   },
