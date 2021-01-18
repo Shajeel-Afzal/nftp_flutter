@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_authentication/splash_screen.dart';
+import 'package:firebase_authentication/timeline_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }
@@ -62,13 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () async {},
-                    child: Text("Login"),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  OutlinedButton(
                     onPressed: () async {
                       String email = emailTextEditingController.text;
                       String password = passwordTextEditingController.text;
@@ -76,19 +72,44 @@ class _LoginScreenState extends State<LoginScreen> {
                       try {
                         UserCredential userCredential = await FirebaseAuth
                             .instance
-                            .createUserWithEmailAndPassword(
+                            .signInWithEmailAndPassword(
                                 email: email, password: password);
+
+                        if (userCredential.user != null) {
+                          print("User Logged in successfully");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return TimeLineScreen();
+                              },
+                            ),
+                          );
+                        } else {
+                          print("User could not login!");
+                        }
+
                         print(userCredential);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           print('The password provided is too weak.');
                         } else if (e.code == 'email-already-in-use') {
                           print('The account already exists for that email.');
+                        } else {
+                          print('Something went wrong while doing login!');
                         }
                       } catch (e) {
                         print(e);
                       }
                     },
+                    child: Text("Login"),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  OutlinedButton(
+                    onPressed: () async {},
                     child: Text("Signup"),
                   )
                 ],
