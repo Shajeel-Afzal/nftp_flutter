@@ -109,7 +109,44 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 20,
                   ),
                   OutlinedButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      String email = emailTextEditingController.text;
+                      String password = passwordTextEditingController.text;
+
+                      try {
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .createUserWithEmailAndPassword(
+                                email: email, password: password);
+
+                        if (userCredential.user != null) {
+                          print("User Logged in successfully");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return TimeLineScreen();
+                              },
+                            ),
+                          );
+                        } else {
+                          print("User could not login!");
+                        }
+
+                        print(userCredential);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          print('The password provided is too weak.');
+                        } else if (e.code == 'email-already-in-use') {
+                          print('The account already exists for that email.');
+                        } else {
+                          print('Something went wrong while doing login!');
+                        }
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
                     child: Text("Signup"),
                   )
                 ],

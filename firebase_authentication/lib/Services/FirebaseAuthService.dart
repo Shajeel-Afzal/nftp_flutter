@@ -9,6 +9,10 @@ class FirebaseAuthservice {
     }
   }
 
+  User getUser() {
+    return FirebaseAuth.instance.currentUser;
+  }
+
   bool isLogin() {
     User user = FirebaseAuth.instance.currentUser;
 

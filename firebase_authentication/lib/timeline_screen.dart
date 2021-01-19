@@ -1,3 +1,4 @@
+import 'package:firebase_authentication/Post.dart';
 import 'package:firebase_authentication/Services/FirebaseAuthService.dart';
 import 'package:firebase_authentication/main.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,19 @@ class TimeLineScreen extends StatelessWidget {
         ],
       ),
       body: Text("Timeline will show here!"),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return PostScreen();
+              },
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
