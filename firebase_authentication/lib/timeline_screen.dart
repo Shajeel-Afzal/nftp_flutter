@@ -34,7 +34,7 @@ class TimeLineScreen extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return PostScreen();
+                return LoginScreen();
               },
             ),
           );
